@@ -86,9 +86,3 @@ def my_eval : Syntax → Semantics
 | V := five
 
 #reduce my_eval II 
-
-
-
-
-
-
