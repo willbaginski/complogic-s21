@@ -12,6 +12,13 @@ inductive Semantics : Type
 | four
 | five
 
+#reduce Semantics.one
+
+open Semantics
+open Syntax
+
+#reduce one 
+
 /-
 I --> one
 II --> two
@@ -28,11 +35,60 @@ A little bit of Lean
 -- Variable
 -- Application
 
-#reduce 1
+#reduce 1   -- literal
 
-def x := 1
+def x := 1  -- variable
 #reduce x
 
 def my_id : nat → nat := (λ n, n)   -- lambda expression, literal
-                                -- type inference
+                                    -- type inference
 --       T            V
+
+#reduce (my_id 1)
+#reduce (my_id 4)
+-- #reduce (my_id "Hello, Lean!")
+
+def my_id' : ℕ → ℕ  -- by cases
+| n := n
+
+def my_id'' (n : nat) : nat :=    -- C style syntax
+n
+
+#reduce my_id
+#reduce my_id''
+
+-- End of "A little bit of Lean"
+
+-- Another aside
+
+def my_add (n m : ℕ) := nat.add n m  -- n + m
+
+#reduce my_add 2 3
+
+def my_add' : ℕ → (ℕ → ℕ) := 
+  λ n,
+    λ m, 
+      n + m
+
+def k := my_add' 5
+
+#reduce k 6
+
+/-
+Our semantics!
+-/
+
+def my_eval : Syntax → Semantics 
+| I := one 
+| II := two
+| III := three
+| IV := four
+| V := five
+
+#reduce my_eval II 
+
+
+
+
+
+
