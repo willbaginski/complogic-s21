@@ -218,7 +218,7 @@ def bool_box : box bool := box.mk bool.tt
 #check box
 
 def str_box : box string:= box.mk "Hello, Lean!"
-def bool_box := box.mk tt
+def bool_box' := box.mk bool.tt
 
 #eval nat_box.val
 #eval str_box.val
