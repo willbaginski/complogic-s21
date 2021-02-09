@@ -12,9 +12,9 @@ inductive Semantics : Type
 | four
 | five
 
-#reduce one           -- Defined in Semantics namespace
+#reduce one           -- Visible only  in Semantics namespace
 
-#reduce Semantics.one -- Access definition in namespace
+#reduce Semantics.one -- Qualified access to that namespace
 
 open Semantics        -- Open namespaces
 open Syntax

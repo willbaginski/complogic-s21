@@ -50,9 +50,11 @@ def id : Π { α : Type u}, α → α :=
 #eval id 5
 
 -- error cases
-#eval id _
-#eval id nat _
-#eval (@id nat) _
+#eval id _         -- can't infer α 
+#eval id nat _     -- type error!
+
+-- turn off implicit typing
+#eval (@id nat) _   -- all goot, expects ℕ 
 
 #check 1
 #check nat 
