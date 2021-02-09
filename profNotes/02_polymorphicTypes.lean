@@ -110,18 +110,32 @@ sense means AND.
 -/
 
 /-
-We define a product type with one 
-field. A value of this type can be
-visualized as a box with a single 
-value inside. We start with a type
-of box that "contains" a single nat
-value. We present the same type in
-four ways to illustrate syntax you
-can use.
+Note: The empty type can be viewed as
+also a product type with zero fields.
+-/
+
+/-
+We now define a product type with 
+one field. 
+
+To understand such type definitions
+you need to understand that while a
+constructor, C, is like a function, 
+with zero or more arguments, the only 
+thing it does is to package up its
+arguments into a term, (C a₀ ... aₙ). 
+
+A value of our box type can thus be 
+visualized as a box (term) with a
+single value, the argument to box.mk, 
+inside. 
+
+As usual there are several syntactic
+variants for defining inductive types.
 -/
 
 inductive box_nat' : Type
-| mk (val : ℕ) : box_nat'
+| mk (val : ℕ) -- : box_nat'
 
 inductive box_nat'' : Type
 | mk : ℕ → box_nat''
@@ -129,12 +143,13 @@ inductive box_nat'' : Type
 structure box_nat''' : Type :=   
 mk :: (val : ℕ)
 
-structure box_nat := 
+structure box_nat :=  -- readable
 (val : ℕ) 
 
+-- Let's create such a value
 def aBox := box_nat.mk 3 
 
-#check aBox
+-- What does the resulting term look like?
 #reduce aBox
 
 
@@ -143,6 +158,12 @@ Given a box, we "destructure" it using
 "pattern matching" to get at the values
 that were used in its construction: in
 this case to access the ℕ inside a box.
+
+Here we see a more interesting form of
+unification. The key ideas are (1) the
+algorithm determines whether a pattern
+matches, (2) it binds names to parts of
+the object being matched accordingly. 
 -/
 
 def unbox_nat : box_nat → ℕ 
@@ -197,8 +218,6 @@ fields -- the type of ordered pairs --
 and two type parameters accordingly. 
 -/
 
-namespace hidden  -- Lean defined prod
-
 structure prod (α β : Type) : Type :=
 (fst : α) 
 (snd : β)
@@ -218,106 +237,6 @@ def pair2 := prod.mk "Bye" tt
 
 #check prod
 
-/-
-Note: In contrast to arrays, in which 
-all values are of the same type, records
-can have fields of different types, as 
-we see in the following example. You
-should have strong intuition for product
-types, as they crop up all the time in
-imperative programming: as struct in C;
-as multiple data fields of classes in OO
-languages, such as C++, Java, Python; 
-and as fields of records in relational
-databases.
--/
-
-/-
-Think about a Java class: it basically
-defines a record/structure/product type 
-then gathers around it a set of operations
-on instances of such structures. (There's
-more to OOP than that, namely dynamic types
-and dispatch, but that's another matter).
--/
-
-/-
-Let's start with an example. The prod_nat_string.mk
-constructor takes a ℕ value, n, and a string value,
-s, and puts them together into a pair, (n, s). The
-mk function can thus be viewed as a prod_nat_string
-introduction rule.
-
-Now suppose we're given such a pair, (n, s), and 
-we want to consume/use it to obtain a value of type
-string (namely the string value that constitutes the
-second element of the pair). 
-
-To get at the elements of pair, (mk n s), constructed 
-from some ℕ, n, and some string, s, we *destructure*
-the pair by "pattern matching" on its constructor name
-and by giving names to the values from which it was
-constructed. This is like "breaking open the box and
-giving names to the contents." Once we've done that we
-can used the named contents in computing and returning
-a desired value.
-
-Here we use destructuring to define "field accessor"
-functions for nat-string pairs. We refer to the first
-field of a pair as "fst" and the second as "snd". We
-also call such accessors "projection functions."
--/
-
-def fst_nat_string : prod_nat_string → nat
-| (prod_nat_string.mk n s) := n
-
-def snd_nat_string : prod_nat_string → string
-| (prod_nat_string.mk x y) := y
-
-#eval fst_nat_string (prod_nat_string.mk 1 "Hello")
-#eval snd_nat_string (prod_nat_string.mk 1 "Hello")
-
--- structures auto-generate projection functions
-
-/-
-Recall
-
-structure prod_nat_string''' := 
-(fst : ℕ) (snd : string)
-
--/
-def p := prod_nat_string'''.mk 1 "Hello"
-#eval (prod_nat_string'''.fst p)
-#eval (p.fst)     -- dot notation for projection
-#eval (p.snd)     -- aka accessor functions
-
-
-
-/-
-Polymorphic Types!
--/
-
-universe u
-
-structure box (α : Type u) : Type u :=
-(val : α)
-
--- test 
-def boxed_nat := box.mk 3
-def boxed_string := box.mk "Hello"
-#eval boxed_nat.val
-#eval boxed_string.val
-
-
-structure prod (α β : Type u) : Type u :=
-(fst : α) (snd : β)
-
--- test
-
-def ns_pair := prod.mk 1 "Hi, Lean!"
-#eval ns_pair.fst
-#eval ns_pair.snd
-
 
 structure phythagorean_triple : Type :=
 (a b c : ℕ)
@@ -328,7 +247,6 @@ phythagorean_triple.mk
 3 4 5
 rfl
 
-
 #reduce py_tri.cert   -- construct proof that 25 = 25
 
 
@@ -337,6 +255,6 @@ phythagorean_triple.mk
 3 4 6
 rfl           -- can't construct proof that 25 = 36
 
-
 -- Try that in mere Haskell. No way!
 
+end hidden
