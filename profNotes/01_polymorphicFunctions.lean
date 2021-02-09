@@ -18,8 +18,9 @@ def id_nat' : nat → nat
 def id_nat'' (n : nat) : nat := n
 
 -- back to main point
+def x : nat := 5
 def id_string : string → string :=
-  λ n, n 
+  fun (s : string), s 
   
 def id_bool : bool → bool :=
   λ n, n 

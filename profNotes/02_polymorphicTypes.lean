@@ -27,6 +27,11 @@ inductive romanNumeral : Type
 -- The empty data type
 inductive empty : Type  -- Look Ma, no terms ("uninhabited")
 
+def x : empty := _
+
+def funny : empty → empty
+| e := e
+
 -- The unit data type
 inductive unit : Type   -- A type with one value (void)
 | star : unit
@@ -65,6 +70,7 @@ def next_day : day → day
 | thu := fri
 | fri := sat
 | sat := sun
+
 
 /-
 The left side of a case is usually called
@@ -119,7 +125,7 @@ We now define a product type with
 one field. 
 
 To understand such type definitions
-you need to understand that while a
+you need to understand that  a
 constructor, C, is like a function, 
 with zero or more arguments, the only 
 thing it does is to package up its
@@ -167,6 +173,7 @@ the object being matched accordingly.
 -/
 
 def unbox_nat : box_nat → ℕ 
+-- box_nat.mk 3     -- pattern matching, unification
 | (box_nat.mk n) := n
 
 #eval unbox_nat aBox
@@ -203,14 +210,24 @@ that is the value of that parameter.
 structure box (α : Type) : Type :=
 (val : α)
 
-def nat_box := box.mk 3
-def str_box := box.mk "Hello, Lean!"
+def nat_box : box nat := box.mk 3
+def bool_box : box bool := box.mk bool.tt
+
+#check nat_box
+
+#check box
+
+def str_box : box string:= box.mk "Hello, Lean!"
 def bool_box := box.mk tt
 
 #eval nat_box.val
 #eval str_box.val
 #eval bool_box.val
 
+def fun_box : box (nat → nat) := box.mk (nat.succ)
+
+#check nat.succ
+#eval nat.succ 4
 
 /-
 Polymorphic product types with two 
@@ -226,6 +243,17 @@ structure prod (α β : Type) : Type :=
 
 -- "Introduce" some pairs
 def pair1 := prod.mk 4 "Hi"
+
+#check pair1
+#check prod 
+
+#eval prod.fst pair1
+#eval prod.snd pair1
+
+#eval pair1.fst
+#eval pair1.snd
+
+
 def pair2 := prod.mk "Bye" tt
 
 -- "Eliminate" some pairs
@@ -239,7 +267,9 @@ def pair2 := prod.mk "Bye" tt
 
 
 structure phythagorean_triple : Type :=
-(a b c : ℕ)
+(a : ℕ)
+(b : ℕ)
+(c : ℕ)
 (cert: a*a + b*b = c*c)
 
 def py_tri : phythagorean_triple :=
