@@ -1,11 +1,15 @@
 namespace hidden
 
 /-
-Types Part I: Sum types, product types, inference rules
+Inductive, aka algebraic, data types 
+  - sum types
+  - product types and case analysis
+  - parametrically polymorphic
+  - sum of product types and destructuring
 -/
 
 /-
-SOME SUM TYPES (variant, or, tagged union)
+SUM TYPES
 
 A value of such a type is "one of these OR
 one of those OR one of something else." SUM
@@ -20,16 +24,20 @@ inductive romanNumeral : Type
 | V     : romanNumeral
 
 
-inductive empty : Type  -- Look Ma, no values!
+-- The empty data type
+inductive empty : Type  -- Look Ma, no terms ("uninhabited")
 
+-- The unit data type
 inductive unit : Type   -- A type with one value (void)
 | star : unit
 
+-- The bool data type
 inductive bool : Type   -- Two values
 | tt : bool
 | ff                    -- leave type to be inferred
 
-inductive day : Type    -- code easy to read
+-- An inductive type with seven values
+inductive day : Type
 | sun
 | mon
 | tue
@@ -41,20 +49,16 @@ inductive day : Type    -- code easy to read
 open day
 
 /-
+CASE ANALYSIS 
+
 We generally define functions that consume
-values of sum types by case analysis. Which
-constructor was used to construct the value
-of the argument? The left side of a case is 
-a pattern. Argument values are matched in the
-order in which patterns are given. The result
-is the value of the right hand side of the 
-first pattern that matches.
+values of sum types by case analysis. To know
+what to return, we need to know what form of
+value we got as an argument. 
 -/
 
 def next_day : day → day
--- if the argument value is sun, reduce to mon
 | sun := mon
--- etc
 | mon := tue
 | tue := wed
 | wed := thu
@@ -62,9 +66,31 @@ def next_day : day → day
 | fri := sat
 | sat := sun
 
+/-
+The left side of a case is usually called
+a pattern. Argument values are matched to
+patterns in the order in which patterns are 
+using a "unification" algorithm (more on that
+later). Function evaluation finds the first
+pattern that matches and return the result
+obtained by evaluating the expression on the
+right hand side of that pattern-matching
+rule.
+-/
+
 #reduce next_day sun
 #reduce next_day sat
 
+/-
+The _ character can be used to match any value.
+All functions in Lean must be total. We often use
+_ to cover all other cases no covered explicitly 
+so far.
+-/
+def isWeekday : day → bool
+| sat := bool.ff
+| sun := bool.ff
+| _ :=   bool.tt
 
 /-
 PRODUCT TYPES (records, structures)
@@ -72,10 +98,12 @@ PRODUCT TYPES (records, structures)
 
 /-
 A product type has one constructor
-that takes/combines values of zero
-or more other types into records, or 
-structures. In a value of a product 
-type there a value for the first field
+that takes and bundles up values of 
+zero or more other types into records, 
+or structures. 
+
+In a value of a product type there a
+value for the first field of an object
 AND a value for the secon AND a value 
 for the third, etc. PRODUCT in this
 sense means AND.
