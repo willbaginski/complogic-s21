@@ -20,6 +20,10 @@ inductive romanNumeral : Type
 | V     : romanNumeral
 
 
+/-
+Some more simple sum types
+-/
+
 inductive empty : Type  -- Look Ma, no values!
 
 inductive unit : Type   -- A type with one value (void)
