@@ -8,7 +8,9 @@ are of type α and the second elements
 of which are of type β.
 -/
 
-structure prod (α β : Type) : Type :=
+universe u
+
+structure prod (α β : Type u) : Type u :=
 (fst : α) (snd : β)
 
 /-
