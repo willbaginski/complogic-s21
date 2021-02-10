@@ -1,0 +1,3 @@
+# This Repo
+
+This repo contains class materials for Kevin Sullivan's Engineering Logic course. The inClassNotes directory contains notes produce for and presented and often edited in class. These files should reflect exactly what students saw in class. The directory, profNotes, contains subsequently cleaned up and often better-annotated versions of these files. The zzz_junk directory is just a scratch area for the instructor. You need never explore it, and there's no real reason to look, but, hey, if you're bored, have at it :-) 

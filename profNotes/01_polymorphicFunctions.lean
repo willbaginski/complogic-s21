@@ -8,8 +8,19 @@ it unchanged.
 def id_nat : nat → nat :=
   λ n, n 
 
+-- quick reminder on alternative syntax
+
+-- cases
+def id_nat' : nat → nat 
+| n := n
+
+-- c-style
+def id_nat'' (n : nat) : nat := n
+
+-- back to main point
+def x : nat := 5
 def id_string : string → string :=
-  λ n, n 
+  fun (s : string), s 
   
 def id_bool : bool → bool :=
   λ n, n 
@@ -53,36 +64,38 @@ def id1 : Π (α : Type), α → α :=
     λ a,
       a
 
+-- Alternative syntax
+
+def id2 (α : Type) (a : α) := a
+
+def id3 : Π (α : Type), α → α 
+| α a := a
+
 -- tests
 #eval id1 bool tt               -- expect tt
 #eval id1 string "Hello, Lean!" -- expect "Hello..."
 #eval id1 nat 5                 -- expect 5
 
 
+/-
+Type inference
+-/
+
 -- Lean can infer the value of α from the second argument
 #eval id1 _ tt                -- α must be bool
 #eval id1 _ "Hello, Lean!"    -- α must be string
 #eval id1 _ 5                 -- α must be nat
 
--- Here's a more readable syntax for the same function
-
-def id2 (α : Type) (a : α) := a
-
--- And here it is using "by cases" notation
-
-def id3 : Π (α : Type), α → α 
-| α a := a
-
 -- Exercise: Become fluent quickly with these notations
 
 /-
-Type inference
+Implicit type inference
 
 You can ask Lean to infer values automatically. To do this
 put curly braces rather than parentheses around an argument.
 -/
 
-def id4 : Π { α : Type}, α → α := 
+def id4 : Π { α : Type }, α → α := 
   λ α,
     λ a,
       a
@@ -123,14 +136,8 @@ Why? Let's analyze it. That's easier if we make
 the implicit type argument explicit using an _.
 We'll use our id2 version, which requires that
 the first, type, argument (a value of type, Type)
-be given explicitly.
--/
-
-#eval id2 _ nat
-
-/-
-Let's actually reason backwards using an example
-that does work. 
+be given explicitly. Let's start with an example
+that works.  
 -/
 
 #eval id2 nat 5
@@ -139,7 +146,7 @@ that does work.
 Here 5 is value of type nat, and nat is a value
 of type Type. 
 
-              Type 0       -- Type is Type 0
+              Type         -- Type is Type 0
              /  |  \
           bool nat string  (α : Type) 
           / \   |    |
@@ -150,7 +157,7 @@ What does the picture look like with a = nat?
 
               Type 1
                 |
-              Type 0       (α : ???)
+              Type         (α : Type 1)
              /  |  \
           bool nat string  (a : α)
           / \   |    |
@@ -241,7 +248,5 @@ don't worry if it's going over your head at this point. Graduate
 students should work hard to grasp it. For the most part I will
 avoid defining types in full generality w.r.t. universe levels.
 -/
-
-
 
 end right_solution
