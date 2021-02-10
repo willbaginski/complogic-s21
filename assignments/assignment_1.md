@@ -1,0 +1,7 @@
+# Assignment #1: Install leanprover-community on your computer(s).
+
+Install leanprover-community on your computer(s).
+
+1. If you took my 2102 class in the Fall of 2020, you should be all set, so move on to the next step. Otherwise, please continue.
+2. There are three distinct major versions of Lean on the World-Wide Web. (1) Lean version 3, NOT the community version. This was the first Lean Prover public version, developed at Microsoft Research, and is NOT the version you need for this class; (2) Lean version 4 is a brand new version now being developed at Microsoft; it is very interesting but is not ready for prime time and is NOT the version you needed for this class; (3) Lean Version 3 being developed and maintained by the Lean Community. This IS the one you want for this class.
+3. The instructions for installing the correct version, along with a great deal of other helpful information, are available [here](https://leanprover-community.github.io/get_started.html). NB: If you're using Windows, we *strongly* recommend that you uninstall whatever previous version of Python you might have already installed. The instructions here assume you don't have Python installed, and if you do have it, you likely have a version that doesn't include the required libraries. So please, if at all possible, please uninstall what you've got, and install the standard version as described in these instructions.
