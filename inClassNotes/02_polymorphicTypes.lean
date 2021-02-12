@@ -29,9 +29,8 @@ inductive empty : Type  -- Look Ma, no terms ("uninhabited")
 
 def x : empty := _
 
-def funny : empty → empty
-| e := e
-
+def funny : empty → empty :=
+λ (e : empty), e
 -- The unit data type
 inductive unit : Type   -- A type with one value (void)
 | star : unit
@@ -208,7 +207,10 @@ that is the value of that parameter.
 -/
 
 structure box (α : Type) : Type :=
+/-mk ::-/
 (val : α)
+
+#check box 
 
 def nat_box : box nat := box.mk 3
 def bool_box : box bool := box.mk bool.tt
@@ -226,6 +228,13 @@ def bool_box' := box.mk bool.tt
 
 def fun_box : box (nat → nat) := box.mk (nat.succ)
 
+def crazy_box : box (box (nat → nat)) := box.mk (box.mk nat.succ)
+
+#check crazy_box
+def f : ℕ → ℕ := (box.val) fun_box
+#eval f 5
+
+#check nat → nat 
 #check nat.succ
 #eval nat.succ 4
 

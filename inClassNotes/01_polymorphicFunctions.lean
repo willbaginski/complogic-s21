@@ -41,9 +41,14 @@ def id' : Π (α : Type), α → α :=
 universe u
 
 def id : Π { α : Type u}, α → α := 
+λ α, 
+  fun a, 
+    a
+/-
   λ α,
     λ n,
       n
+-/
 
 #eval id tt
 #eval id "Hello, Lean!"

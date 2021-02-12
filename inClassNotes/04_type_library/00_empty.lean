@@ -9,7 +9,7 @@ a case analysis on values of
 this type, as there are no
 cases to consider. 
 -/
-inductive empty : Type
+inductive empty : Type -- uninhabited
 
 /-
 Exercise: Show that you can
@@ -21,5 +21,21 @@ to "eliminate" e and to return
 without returning any particular
 value of type nat.
 -/
+
+def bool_not' : bool → bool
+| tt := ff
+| ff := tt 
+
+def bool_not : bool → bool :=
+λ b, 
+  match b with
+  | tt := ff
+  | ff := tt
+  end
+
+
+def e2n (e : empty) : nat :=
+match e with
+end 
 
 end hidden
