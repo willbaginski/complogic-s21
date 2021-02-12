@@ -17,16 +17,16 @@
 **Schedule.** Roughly speaking we will cover material drawn from about one chapter each week. Here are the section and chapter assignments by date, along with dates reserved for reviews and exams.
 
 
-Date   | Section | Chapter
------- | ------- | ----------
-Warmup |         | History, purpose, and nature of logic: Watch https://www.youtube.com/watch?v=wOQuW6QFdos&feature=youtu.be
-Feb 2  | Basics             | Formal Languages 
-Feb 4  | Basics             | Types and Functions
-Feb 9  | Basics             | Polymorphism 
-Feb 11 | Basics             | Type Universes
-Feb 16 |                          | 3. Forward Proofs (Bottom-up development)
-Feb 18 |
-Feb 23 |                          | 4. Functional-Logic Programming
+Date   | Topic
+------ | ----------
+Warmup | History, purpose, and nature of logic  | Watch https://www.youtube.com/watch?v=wOQuW6QFdos&feature=youtu.be
+Feb 2  | Formal Languages                       | 
+Feb 4  | Types and Functions                    | Homework #1 Development Environment Set-up
+Feb 9  | Polymorphic Type Builders              |
+Feb 11 | Type Universes                         | Homework #2 + Reading assignment
+Feb 16 | Higher-Order Functions                 | 
+Feb 18 | Algebraic Structures, Typeclasses      |
+Feb 23 | Propositions and Proofs                |
 Feb 25 |
 Mar 1  | Functional Programming   | 5. Inductive Predicates
 Mar 3  |
