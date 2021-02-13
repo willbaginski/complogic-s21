@@ -17,8 +17,8 @@
 **Schedule.** Roughly speaking we will cover material drawn from about one chapter each week. Here are the section and chapter assignments by date, along with dates reserved for reviews and exams.
 
 
-Date   | Topic
------- | ----------
+Date   | Topic  |  Assignments |
+------ | ------ | ------------ |
 Warmup | History, purpose, and nature of logic  | Watch https://www.youtube.com/watch?v=wOQuW6QFdos&feature=youtu.be
 Feb 2  | Formal Languages                       | 
 Feb 4  | Types and Functions                    | Homework #1 Development Environment Set-up
@@ -28,27 +28,26 @@ Feb 16 | Higher-Order Functions                 |
 Feb 18 | Algebraic Structures, Typeclasses      |
 Feb 23 | Propositions and Proofs                |
 Feb 25 |
-Mar 1  | Functional Programming   | 5. Inductive Predicates
-Mar 3  |
-Mar 8  |                          | 6. Monads
+Mar 1  | |                          |
+Mar 3  |                            |
+Mar 8  |                          | 
 Mar 10 |
-Mar 15 |                          | 7. Meta-Programming         
-Mar 17 |                          
-Mar 22 | REVIEW                   |           
+Mar 15 |                          | 
+Mar 17 |                          |
+Mar 22 | REVIEW                   |
 Mar 24 | EXAM                     | 
-Mar 29 | Programming Semantics    | 8. Operational Semantics                          
+Mar 29 |                            | 
 Mar 31 |                          
-Apr 1  |                          | 9. Hoare Logic
+Apr 1  |                          | 
 Apr 6  |
-Apr 8  |                          | 10. Denotational Semantics
+Apr 8  |                          | 
 Apr 13 |
-Apr 15 | Mathematics              | 11. Logical Foundations
+Apr 15 |                          | 
 Apr 20 |
-Apr 22 |                          | 12. Basic Mathematical Structures
+Apr 22 |                          | 
 Apr 27 |
-Apr 29 |                          | 13. Real and Rational Numbers
+Apr 29 |                          | 
 May 4  |
 May 6  | REVIEW                   | 
-May 15 | EXAM 9AM-12PM or Takehome TBD                        
-
+May 15 | EXAM 9AM-12PM or Takehome TBD
 
