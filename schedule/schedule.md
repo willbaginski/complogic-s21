@@ -30,7 +30,7 @@ Feb 23 | Algebraic Structures, Typeclasses (functor, monoid)    | HW #3 Due, HW 
 Feb 25 | Algebraic Structures, Typeclasses (applicative, monad) |
 Mar 1  | Logic and Computation: Propositions as Types           | HW# #4 Due, HW #5 Out (Propositions and Proofs)
 Mar 3  | Dependent Types (Π and Σ Types in full generality)     |
-Mar 8  | Inductive Families (Eq, Relations, Partial functions)  | HW #5 Due, HW #6 Out (Logic and Computation: Proofs I)
+Mar 8  | Inductive Families (Eq, Other Relations)               | HW #5 Due, HW #6 Out (Logic and Computation: Proofs I)
 Mar 10 | Predicate Logic and Proofs I                           |
 Mar 15 | Predicate Logic and Proofs II                          | HW #6 Out, HW #7 Out (Logic and Computation: Proofs II)  
 Mar 17 | Predicate Logic and Proofs III                         |
