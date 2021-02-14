@@ -1,3 +1,7 @@
+namespace hidden
+
+#print nat
+
 /-
 The nat type in Lean is defined just as it
 is in our nat.lean file, so we just use Lean's
@@ -27,8 +31,6 @@ always get terms that are not equal.
 values obtainable by any finite number
 of applications of its constructors.
 -/
-
-#print nat
 
 /-
 The key to writing functions that take nat
@@ -193,3 +195,5 @@ definition of exponentiation and
 implement it, using your definition
 of multiplication if/as necessary.
 -/
+
+end hidden
