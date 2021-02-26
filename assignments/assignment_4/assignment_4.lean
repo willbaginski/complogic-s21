@@ -176,7 +176,7 @@ _
 def baz : ev 5 → empty :=
 _
 
-/- 8. Define evp to be a sigma (dependent 
+/- 8. Define evdp to be a sigma (dependent 
 pair) type, avalue of which has a natural
 number, n,  as its first component, and a 
 value of type, ev n, as its second. Then 
@@ -184,3 +184,16 @@ define evp0, evp2, and evp4 to be values
 of this type, whose first elements are,
 respectively, 0, 2, and 4.
 -/
+
+-- Your answers here
+
+/- 9. Write a function, mkEvp, that takes 
+a argument, n, of type nat, implicitly, and 
+an argument, nEv ot type, ev n, and that 
+returns a value of type evdp (from the last
+problem). Then briefly answer the question, 
+in what sense does mkEvp have a dependent
+function type? 
+-/
+
+-- Your answers here
