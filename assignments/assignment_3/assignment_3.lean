@@ -17,9 +17,12 @@ def double : ℕ → ℕ
 | 0 := 0
 | (n' + 1) := double n' + 2
 
+<<<<<<< HEAD
 #eval double 0
 #eval double 3
 
+=======
+>>>>>>> upstream/master
 /-
 2. Write a function, map_list_nat, that 
 takes as its arguments (1) a list, l, of 
@@ -30,7 +33,6 @@ applying f to each element of l. Make f
 the first argument and l the second. The
 function will work by case analysis and
 recursion on l.
-
 -/
 
 -- ANSWER HERE
@@ -298,6 +300,97 @@ def default_nat := default ℕ
 def default_bool := default bool
 def default_list (α : Type u) := default (list α)
 
+<<<<<<< HEAD
 #eval default_nat
 #eval default_bool
 #eval default_list string
+=======
+-- C style
+def comp (g f : nat → nat) : nat → nat :=
+λ n, g (f n)
+
+-- lambda expressions
+def comp' : (nat → nat) → (nat → nat) → (nat → nat) :=
+λ g f, 
+  λ n, g (f n)
+
+-- by cases
+def comp'' : (nat → nat) → (nat → nat) → (nat → nat)
+| g f := λ (n : ℕ), g (f n)
+
+def square (n : nat) := n * n
+def double (n : nat) := 2 * n
+
+def myFavFunc := comp' square double
+#check myFavFunc
+#eval myFavFunc 5
+-- square (double 5)
+-- square 10
+-- 100
+
+def comp_nat_string : (nat → bool) → (string → nat) → (string → bool) := 
+λ (nb : ℕ → bool),
+  λ (sn : string → nat),
+    λ (s : string), 
+     nb (sn s)
+
+def isStringEmpty := comp_nat_string (λ (n : nat), n=0) string.length
+ 
+#eval isStringEmpty "Hello"
+#eval isStringEmpty ""
+      
+def yeah {α β γ : Type} (g : β → γ) (f : α → β) : (α → γ) :=
+λ (a : α), g (f a) 
+
+#reduce (yeah (λ (n : nat), (n=0 : bool)) string.length) ""
+#reduce (yeah square double) 5
+#reduce (yeah (λ (n : nat), (n=0 : bool)) string.length) ""
+
+
+/-
+Write a function, iterate, that 
+takes as its arguments (1) a function, 
+f, of type nat → nat, and (2) a natural
+number, n, and that returns a function 
+that takes an argument, (m : nat), and
+that returns the result of applying f 
+to m n times.
+-/
+
+def iterate : (nat → nat) → nat → (nat → nat) 
+| f 0 := λ (m : nat), m
+| f (n' + 1) := λ m, _
+
+
+#eval (iterate double 10) 1
+
+/-
+Write a polymorphic map_box function
+of type 
+
+Π (α β : Type u), 
+  (α → β) → box α → box β  
+  
+that takes a function, f, of type 
+(α → β), and a box, b, containing a 
+value of type α and that returns a 
+box containing that value transformed
+by the application of f.  
+
+-/
+universe u
+structure box (α : Type u) : Type u :=
+mk :: (val : α)
+
+def map_box : Π {α β : Type u}, 
+  (α → β) → (box α → box β) 
+| _ _ f b := box.mk (f b.val)
+
+def b0 := box.mk 0
+
+def f := nat.succ
+
+def q := map_box f
+
+#reduce q b0
+>>>>>>> upstream/master
