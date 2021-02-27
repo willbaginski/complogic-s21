@@ -13,7 +13,12 @@ definition:
 
 
 -- ANSWER HERE
+def double : ℕ → ℕ
+| 0 := 0
+| (n' + 1) := double n' + 2
 
+#eval double 0
+#eval double 3
 
 /-
 2. Write a function, map_list_nat, that 
@@ -29,7 +34,9 @@ recursion on l.
 -/
 
 -- ANSWER HERE
- 
+def map_list_nat (f : ℕ → ℕ) : list ℕ → list ℕ
+| list.nil := list.nil
+| (list.cons h t) := list.cons (f h) (map_list_nat t)
 
 /-
 3. Test your map_list_nat function by
@@ -40,7 +47,12 @@ your set of test inputs and use comments
 to document the expected return values.
 -/
 
-
+/- this should return the same empty list -/
+#eval map_list_nat double []
+/- should return [4] -/
+#eval map_list_nat double [2]
+/- should return [2,4,6] -/
+#eval map_list_nat double [1,2,3]
 
 /-
 4. In Lean, repr is an "overloaded"
@@ -65,7 +77,12 @@ converted to a string using repr.
 -/
 
 -- ANSWER HERE
+def map_list_nat_string : list ℕ → list string
+| list.nil := list.nil
+| (list.cons h t) := list.cons (repr h) (map_list_nat_string t)
 
+#eval map_list_nat_string []
+#eval map_list_nat_string [1, 2, 3, 4]
 
 /-
 5. Write a function, filterZeros,
@@ -78,7 +95,12 @@ should return [1,2,3,4,5].
 -/
 
 -- ANSWER HERE
+def filterZeros : list ℕ → list ℕ
+| list.nil := list.nil
+| (list.cons 0 t) := filterZeros t
+| (list.cons h t) := list.cons h (filterZeros t)
 
+#eval filterZeros [1, 0, 1, 0, 3, 0, 0, 5, 0]
 
 /-
 6. Write a function, isEqN, that
@@ -90,7 +112,12 @@ sure to test your function.
 -/
 
 -- ANSWER HERE
+def isEqn (n : ℕ) : (ℕ → bool) :=
+λ m, m = n
 
+
+#eval isEqn 1 1
+#eval isEqn 0 1
 
 /-
 7.
@@ -106,8 +133,14 @@ argument return true or false).
 -/
 
 -- ANSWER HERE
+def filterNs (pred : ℕ → bool) : list ℕ → list ℕ
+| list.nil := list.nil
+| (list.cons h t) := if pred h then filterNs t else list.cons h (filterNs t)
 
-
+#eval filterNs (isEqn 0) []
+#eval filterNs (isEqn 0) [0, 0, 0]
+#eval filterNs (isEqn 0) [1, 2, 3, 4]
+#eval filterNs (isEqn 0) [1, 2, 0, 3, 4]
 
 /-
 8. Write a function, iterate, that 
@@ -126,7 +159,15 @@ nat.succ, your double function, and
 -/
 
 -- ANSWER HERE
+def iterate (f : ℕ → ℕ) : ℕ → (ℕ → ℕ)
+| 0 := λ m, m
+| (n' + 1) := λ m, iterate n' (f m)
 
+
+#eval iterate double 3 5  -- should be 40 (5*2*2*2)
+#eval iterate nat.succ 10 0  -- should be 10
+#eval iterate (nat.add 4) 0 1  -- should be 1
+#eval iterate (nat.add 3) 5 12  -- should be 27
 
 /-
 9. Write a function, list_add, that takes
@@ -135,7 +176,11 @@ sum of all the numbers in the list.
 -/
 
 -- ANSWER HERE
+def list_add : list ℕ → ℕ
+| list.nil := 0
+| (list.cons h t) := h + list_add t
 
+#eval list_add [1, 2, 3]
 
 /-
 10. Write a function, list_mul, that takes
@@ -144,7 +189,12 @@ product of all the numbers in the list.
 -/
 
 -- ANSWER HERE
+def list_mul : list ℕ → ℕ
+| list.nil := 1
+| (list.cons h t) := if h = 0 then 0 else h * list_mul t
 
+#eval list_mul [1, 2, 4]
+#eval list_mul [1, 2, 3, 0]
 
 /-
 11. Write a function, list_has_zero, that
@@ -157,8 +207,12 @@ that both have and don't have zero values.
 -/
 
 -- ANSWER HERE
+def list_has_zero : list ℕ → bool
+| list.nil := ff
+| (list.cons h t) := if isEqn 0 h then tt else list_has_zero t
 
-
+#eval list_has_zero [1, 2, 3]
+#eval list_has_zero [0, 1, 2]
 
 /-
 12. Write a function, compose_nat_nat,
@@ -171,7 +225,13 @@ argument values.
 -/
 
 -- ANSWER HERE
+def compose_nat_nat (f g : ℕ → ℕ) : (ℕ → ℕ) :=
+λ n, g (f n)
 
+#eval compose_nat_nat nat.succ nat.succ 2 --should be 4
+#eval compose_nat_nat double nat.succ 2 --should be 5
+#eval compose_nat_nat nat.succ double 2 --should be 6
+#eval compose_nat_nat double double 2 --should be 8
 
 /-
 13. Write a polymorphic map_box function
@@ -188,6 +248,18 @@ by the application of f.
 -/
 
 -- ANSWER HERE
+universe u
+
+-- copied box from class library
+structure box (α : Type u) : Type u :=
+(val : α)
+
+def map_box : Π (α β : Type u),
+  (α → β) → box α → box β :=
+  λ _ _ f b, box.mk (f (box.val b))
+
+#eval (map_box ℕ ℕ double (box.mk 10)).val  --should be 20
+
 
 /-
 14. 
@@ -201,7 +273,12 @@ f.
 -/
 
 -- ANSWER HERE
+def map_option (α β : Type u) (f : α → β) : option α → option β
+| none := none
+| (some (a : α)) := f a  -- don't need to write "some (f a)" bc some is inferred
 
+-- test, should return some "3"
+#eval map_option nat string repr (some 3)
 
 /-
 15. Write three functions, default_nat,
@@ -217,5 +294,10 @@ universe variable for the list problem.
 -/
 
 -- ANSWER HERE
+def default_nat := default ℕ
+def default_bool := default bool
+def default_list (α : Type u) := default (list α)
 
-
+#eval default_nat
+#eval default_bool
+#eval default_list string
